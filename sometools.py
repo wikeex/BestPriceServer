@@ -2,13 +2,13 @@ import werobot
 import requests
 from models import Keywords, Items, Database
 from threading import Timer
+from config import Config
 
-robot = werobot.WeRoBot(token='mytoken001', app_id='wx16c85a8c8523abd3', app_secret='b19884b7600afc7ad9e0d67c705886d7')
+robot = werobot.WeRoBot(token=Config.TOKEN, app_id=Config.APP_ID, app_secret=Config.APP_SECRET)
 
 
 @robot.text
 def hello(message):
-    print(message.content)
     userkeywords = Keywords(user=message.source, smzdmdata=dbclient.smzdmdata)
 
     if '~~' in message.content:
@@ -31,7 +31,7 @@ def timing_task():
     timer = Timer(1800, timing_task)
     timer.start()
 
-    modelID = 'zG4GhI3iP9hsamxuN1HO1PMUdI2eczUtTHBfJ5SAQto'
+    modelID = Config.MODEL_ID
     json_data = dict()
     json_data['template_id'] = modelID
     access_token = robot.client.get_access_token()
@@ -54,7 +54,6 @@ def timing_task():
 
 
 if __name__ == '__main__':
-    # 让服务器监听在 127.0.0.1:5000, 默认的80端口报错，大概是当前机器开启80端口需要权限
     robot.config['HOST'] = '127.0.0.1'
     robot.config['PORT'] = 5000
     dbclient = Database()

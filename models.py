@@ -1,6 +1,7 @@
 import smzdm
 import datetime
 import pymongo
+from config import Config
 
 
 class Message:
@@ -10,8 +11,13 @@ class Message:
 
 class Database:
     def __init__(self):
-        self.client = pymongo.MongoClient('booop.xyz', 27017, username='manager', password='mongo7898529',
-                                     authSource='smzdmdata')
+        self.client = pymongo.MongoClient(
+            Config.DATABASE_HOST,
+            Config.DATABASE_PORT,
+            username=Config.DATABASE_USERNAME,
+            password=Config.DATABASE_PASSWORD,
+            authSource=Config.DATABASE_AUTH_SOURCE
+        )
         self.smzdmdata = self.client.smzdmdata
 
 

@@ -1,7 +1,7 @@
-import smzdm
+from spider import smzdm
 import datetime
 import pymongo
-from config import Config
+from server.config import Config
 
 
 class Message:

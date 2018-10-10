@@ -1,6 +1,6 @@
 import werobot
 import requests
-from server.models import Keywords, Items, Database
+from server.app.models import Keywords, Items, Database
 from threading import Timer
 from server.config import Config
 

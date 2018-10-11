@@ -3,6 +3,7 @@ from time import strftime, localtime, time
 
 base_dir = os.path.abspath(os.path.dirname(__name__))
 
+
 class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True

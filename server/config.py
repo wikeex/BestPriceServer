@@ -31,7 +31,8 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = ''
 
     # 微信公众号设置
-    TOKEN = ''
+    WEROBOT_TOKEN = ''
+    WEROBOT_ROLE = ''
     APP_ID = ''
     APP_SECRET = ''
     MODEL_ID = ''

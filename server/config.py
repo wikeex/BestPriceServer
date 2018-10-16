@@ -31,7 +31,8 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = ''
 
     # 微信公众号设置
-    WEROBOT_TOKEN = ''
+    WECHAT_TOKEN = ''
+    WECHAT_DOMAIM = 'api.weixin.qq.com'
     WEROBOT_ROLE = ''
     APP_ID = ''
     APP_SECRET = ''

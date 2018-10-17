@@ -1,6 +1,6 @@
 from flask import request
 from ..wechat import wechat
-from server.config import Config
+from config import Config
 import hashlib
 
 

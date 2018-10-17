@@ -1,8 +1,8 @@
 import werobot
 import requests
-from server.app.models import Keywords, Items, Database
+from app.models import Keywords, Items, Database
 from threading import Timer
-from server.config import Config
+from config import Config
 
 robot = werobot.WeRoBot(token=Config.TOKEN, app_id=Config.APP_ID, app_secret=Config.APP_SECRET)
 

@@ -28,7 +28,7 @@ class DevelopmentConfig(Config):
     DATABASE_AUTH_SOURCE = ''
 
     # 用户数据库设置
-    SQLALCHEMY_DATABASE_URI = ''
+    SQLALCHEMY_DATABASE_URI = 'sqlite:////'
 
     # 微信公众号设置
     WECHAT_TOKEN = ''

@@ -1,7 +1,19 @@
 from spider import smzdm
 import datetime
 import pymongo
-from server.config import Config
+from config import Config
+from app import db
+
+
+class AccessToken(db.Model):
+    __tablename__ = 'token'
+    token = db.Column(db.TEXT, nullable=False)
+    expires_at = db.Column(db.FLOAT, nullable=False)
+
+
+class User(db.Model):
+    __tablename__ = 'user'
+    ...
 
 
 class Message:

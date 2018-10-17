@@ -31,9 +31,8 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:////'
 
     # 微信公众号设置
-    WECHAT_TOKEN = ''
     WECHAT_DOMAIM = 'api.weixin.qq.com'
-    WEROBOT_ROLE = ''
+    WECHAT_TOKEN = 'mytoken001'
     APP_ID = ''
     APP_SECRET = ''
     MODEL_ID = ''
@@ -50,7 +49,7 @@ class DevelopmentConfig(Config):
         )
         handler.setFormatter(log_format)
         app.logger.setLevel(logging.DEBUG)
-        app.logger.setHandler(handler)
+        app.logger.addHandler(handler)
 
 
 class TestingConfig(Config):
@@ -66,7 +65,8 @@ class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = ''
 
     # 微信公众号设置
-    TOKEN = ''
+    WECHAT_DOMAIM = 'api.weixin.qq.com'
+    WECHAT_TOKEN = 'mytoken001'
     APP_ID = ''
     APP_SECRET = ''
     MODEL_ID = ''
@@ -89,7 +89,8 @@ class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = ''
 
     # 微信公众号设置
-    TOKEN = ''
+    WECHAT_TOKEN = 'mytoken001'
+    WECHAT_DOMAIM = 'api.weixin.qq.com'
     APP_ID = ''
     APP_SECRET = ''
     MODEL_ID = ''
@@ -106,7 +107,7 @@ class ProductionConfig(Config):
         )
         handler.setFormatter(log_format)
         app.logger.setHandler(handler)
-        app.logger.setLevel(logging.INFO)
+        app.logger.addLevel(logging.INFO)
 
 
 config = {

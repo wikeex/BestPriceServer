@@ -1,6 +1,6 @@
 import time
 import requests
-from .models import AccessToken
+import sqlite3
 
 
 class TokenManager:
@@ -12,9 +12,16 @@ class TokenManager:
 
     @classmethod
     def get_access_token(cls):
-        access_token = AccessToken.query.order_by(AccessToken.expires_at.desc()).first()
-        if access_token.expires_at > time.time():
-            return access_token.token
+        conn = sqlite3.connect(cls.app.config.get('SQLALCHEMY_DATABASE_URI'))
+        cursor = conn.cursor()
+        cursor.execute('SELECT access_token FROM user ORDER BY expires_in DESC LIMIT 1')
+        try:
+            access_token = cursor.fetchall()[0][0]
+        except IndexError:
+            access_token = None
+        if access_token and access_token > time.time():
+            conn.close()
+            return access_token
         else:
             try:
                 url = "https://api.weixin.qq.com/cgi-bin/token?"
@@ -26,7 +33,11 @@ class TokenManager:
                 response = requests.get(url, params=parameters)
                 access_token = response.json().get('access_token')
                 expires_in = response.json().get('expires_in')
-                AccessToken(token=access_token, expires_at=expires_in + time.time())
+                cursor.execute(
+                    'INSERT INTO user (access_token, expires_at) VALUES (?, ?)', (access_token, expires_in+time.time())
+                )
+                conn.commit()
+                conn.close()
                 return access_token
             except TimeoutError as e:
                 ...

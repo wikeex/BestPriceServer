@@ -28,13 +28,14 @@ class DevelopmentConfig(Config):
     DATABASE_AUTH_SOURCE = ''
 
     # 用户数据库设置
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////'
+    DATABASE_PATH = os.path.join(base_dir, 'data.sqlite3')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(base_dir, 'data.sqlite3')
 
     # 微信公众号设置
     WECHAT_DOMAIM = 'api.weixin.qq.com'
     WECHAT_TOKEN = 'mytoken001'
-    APP_ID = ''
-    APP_SECRET = ''
+    APP_ID = 'wx16c85a8c8523abd3'
+    APP_SECRET = 'b19884b7600afc7ad9e0d67c705886d7'
     MODEL_ID = ''
 
     @classmethod
@@ -53,6 +54,8 @@ class DevelopmentConfig(Config):
 
 
 class TestingConfig(Config):
+    TESTING = True
+
     # 产品数据库设置
     MONGO_HOST = ''
     DATABASE_PORT = 27017
@@ -62,13 +65,14 @@ class TestingConfig(Config):
     DATABASE_AUTH_SOURCE = ''
 
     # 用户数据库设置
-    SQLALCHEMY_DATABASE_URI = ''
+    DATABASE_PATH = os.path.join(base_dir, 'data.sqlite3')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(base_dir, 'data.sqlite3')
 
     # 微信公众号设置
     WECHAT_DOMAIM = 'api.weixin.qq.com'
     WECHAT_TOKEN = 'mytoken001'
-    APP_ID = ''
-    APP_SECRET = ''
+    APP_ID = 'wx16c85a8c8523abd3'
+    APP_SECRET = 'b19884b7600afc7ad9e0d67c705886d7'
     MODEL_ID = ''
 
 
@@ -86,13 +90,14 @@ class ProductionConfig(Config):
     DATABASE_AUTH_SOURCE = ''
 
     # 用户数据库设置
-    SQLALCHEMY_DATABASE_URI = ''
+    DATABASE_PATH = os.path.join(base_dir, 'data.sqlite3')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(base_dir, 'data.sqlite3')
 
     # 微信公众号设置
     WECHAT_TOKEN = 'mytoken001'
     WECHAT_DOMAIM = 'api.weixin.qq.com'
-    APP_ID = ''
-    APP_SECRET = ''
+    APP_ID = 'wx16c85a8c8523abd3'
+    APP_SECRET = 'b19884b7600afc7ad9e0d67c705886d7'
     MODEL_ID = ''
 
     @classmethod

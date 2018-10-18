@@ -12,14 +12,24 @@ class TokenManager:
 
     @classmethod
     def get_access_token(cls):
-        conn = sqlite3.connect(cls.app.config.get('SQLALCHEMY_DATABASE_URI'))
+        conn = sqlite3.connect(cls.app.config.get('DATABASE_PATH'))
         cursor = conn.cursor()
-        cursor.execute('SELECT access_token FROM user ORDER BY expires_in DESC LIMIT 1')
+
         try:
+            cursor.execute('SELECT token, expires_at FROM token ORDER BY expires_at DESC LIMIT 1')
             access_token = cursor.fetchall()[0][0]
+            expires_at = cursor.fetchall()[0][1]
+        except sqlite3.OperationalError:
+            cursor.execute("""
+            CREATE TABLE token (
+              token TEXT NOT NULL,
+              expires_at FLOAT NOT NULL
+            );
+            """)
+            access_token = None
         except IndexError:
             access_token = None
-        if access_token and access_token > time.time():
+        if access_token and expires_at > time.time():
             conn.close()
             return access_token
         else:
@@ -34,7 +44,7 @@ class TokenManager:
                 access_token = response.json().get('access_token')
                 expires_in = response.json().get('expires_in')
                 cursor.execute(
-                    'INSERT INTO user (access_token, expires_at) VALUES (?, ?)', (access_token, expires_in+time.time())
+                    'INSERT INTO token (token, expires_at) VALUES (?, ?)', (access_token, expires_in+time.time())
                 )
                 conn.commit()
                 conn.close()

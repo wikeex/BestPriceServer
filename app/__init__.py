@@ -1,9 +1,10 @@
-from flask import Flask, Blueprint
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_pymongo import PyMongo
+from flask_mongoalchemy import MongoAlchemy
 from config import config
 from .TokenManager import TokenManager
 
+mongo = MongoAlchemy()
 db = SQLAlchemy()
 tokenmanager = TokenManager()
 
@@ -14,6 +15,7 @@ def create_app(config_name):
 
     config[config_name].init_app(app)
     db.init_app(app)
+    mongo.init_app(app)
     tokenmanager.init_app(app)
 
     from .wechat import wechat as wechat_blueprint

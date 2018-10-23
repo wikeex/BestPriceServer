@@ -49,7 +49,7 @@ def resolve(pages):
     if pages is None:
         return None
 
-    items = dict()
+    items = list()
     for keyword in pages:
         compare_price = 10000000
         if pages[keyword]:
@@ -65,6 +65,7 @@ def resolve(pages):
                         print('没有好价频道和国内优惠')
                         continue
                 item_info = dict()
+                item_info['keyword'] = keyword
                 item_info['image'] = li.xpath('.//img/@src')[0]
                 item_info['name'] = li.xpath('.//h5/a/text()')[0].strip()
                 item_info['price'] = li.xpath('.//h5/a[last()]/div/text()')[0]
@@ -89,8 +90,14 @@ def resolve(pages):
                 if compare_price > item_info['price']:
                     compare_price = item_info['price']
 
-                    items[keyword] = item_info
+                    items.append(item_info)
 
+    return tuple(items)
+
+
+def smzdm(keywords):
+    pages = download(keywords=keywords)
+    items = resolve(pages=pages)
     return items
 
 

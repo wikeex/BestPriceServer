@@ -20,16 +20,16 @@ class DevelopmentConfig(Config):
     LOG_FILENAME = 'logger-' + strftime('%Y-%m-%d', localtime(time())) + '.log'
 
     # 产品数据库设置
-    MONGO_HOST = ''
-    DATABASE_PORT = 27017
-    MONGO_DBNAME = ''
-    MONGO_USERNAME = ''
-    MONGO_PASSWORD = ''
-    DATABASE_AUTH_SOURCE = ''
+    SPIDER_DATABASE_URI = ''
+    SPIDER_DATABASE_PORT = 27017
+    SPIDER_DATABASE_USERNAME = ''
+    SPIDER_DATABASE_PASSWORD = ''
+    SPIDER_DATABASE_AUTH_SOURCE = ''
+    SPIDER_DATABASE_AUTH_MECHANISM = ''
 
     # 用户数据库设置
     DATABASE_PATH = os.path.join(base_dir, 'data.sqlite3')
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(base_dir, 'data.sqlite3')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + DATABASE_PATH
 
     # 微信公众号设置
     WECHAT_DOMAIM = 'api.weixin.qq.com'
@@ -66,7 +66,7 @@ class TestingConfig(Config):
 
     # 用户数据库设置
     DATABASE_PATH = os.path.join(base_dir, 'data.sqlite3')
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(base_dir, 'data.sqlite3')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + DATABASE_PATH
 
     # 微信公众号设置
     WECHAT_DOMAIM = 'api.weixin.qq.com'
@@ -91,7 +91,7 @@ class ProductionConfig(Config):
 
     # 用户数据库设置
     DATABASE_PATH = os.path.join(base_dir, 'data.sqlite3')
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(base_dir, 'data.sqlite3')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + DATABASE_PATH
 
     # 微信公众号设置
     WECHAT_TOKEN = 'mytoken001'

@@ -63,25 +63,31 @@ class Spider:
         # 在什么值得买网站爬取商品信息
         items_detail = smzdm(items.keywords)
 
-        # 并存入商品数据库中
-        for keyword in items_detail:
-            items_detail[keyword].setdefault('store_time', datetime.utcnow())
-            self.mongo.items.update({'keyword': keyword}, {'$push': {'values': items_detail[keyword]}}, True)
+        output_items = list()
+        for item in items_detail:
+            # 存入商品信息到数据库中
+            item.setdefault('store_time', datetime.utcnow())
+            self.mongo.items.update({'$push': item}, True)
 
-        # 检查本次查询是否为历史最低，如果是则输出
-        lowest_price = dict()
-        for keyword in items.keywords:
-            lowest_price[keyword] = self.collection.find_one({'keyword.price': {'$gt': items_detail[keyword]['price']}})
+            # 检查本次查询是否为历史最低，如果是则输出
+            lowest_price = self.collection.find_one({'keyword': item['keyword'], 'price': {'$gt': item['price']}})
+            if lowest_price:
+                continue
+            else:
+                output_items.append(item)
 
-        self.items_queue.put(tuple(lowest_price))
+        # 增加用户open_id到输出数据中
+        to_wechat_task = Keywords.add_user(output_items, self.app.config['DATABASE_PATH'])
+
+        self.items_queue.put(tuple(to_wechat_task))
 
     def _wechat_task(self):
         """
-        每隔30各种从items_queue队列中取商品信息，如果哪个关键词对应的值不为None就向用户发送业务消息。
+        每隔30分钟从items_queue队列中取商品信息，如果哪个关键词对应的值不为None就向用户发送业务消息。
         :return:
         """
         # 使用Timer实现的循环定时任务
         timer = Timer(1800, self._wechat_task)
-        timer.start
+        timer.start()
 
         ...

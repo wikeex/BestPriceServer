@@ -98,7 +98,7 @@ class ProductionConfig(Config):
     WECHAT_DOMAIM = 'api.weixin.qq.com'
     APP_ID = 'wx16c85a8c8523abd3'
     APP_SECRET = 'b19884b7600afc7ad9e0d67c705886d7'
-    MODEL_ID = ''
+    MODEL_ID = '3Jk-JCeqrV755zgJhMJ-cTErhD2zzzrpo9WbrgDbl7U'
 
     @classmethod
     def init_app(cls, app):

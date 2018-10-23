@@ -69,3 +69,4 @@ class TokenManager:
         config = app.config
         cls.appid = config.get('APP_ID')
         cls.secret = config.get('APP_SECRET')
+        app.get_access_token = cls.get_access_token()

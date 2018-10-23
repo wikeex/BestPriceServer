@@ -1,3 +1,4 @@
+import requests
 from queue import Queue
 from pymongo import MongoClient
 from threading import Timer
@@ -90,4 +91,18 @@ class Spider:
         timer = Timer(1800, self._wechat_task)
         timer.start()
 
-        ...
+        to_send = self.items_queue.get()
+        json_data = dict()
+        json_data['template_id'] = self.app.config['MODEL_ID']
+
+        access_token = self.app.get_access_token()
+        url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}'.format(access_token)
+        if to_send:
+            for item in to_send:
+                for user in item['user']:
+                    json_data['data'] = {'name': {'value': item['name'], 'color': '#173177'},
+                                         'price': {'value': item['price'], 'color': '#173177"'}}
+                    json_data['url'] = item['smzdm_link']
+                    json_data['touser'] = user
+                    respones = requests.post(url=url, json=json_data)
+                    assert respones.json().get('errcode') == 0

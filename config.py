@@ -32,10 +32,10 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + DATABASE_PATH
 
     # 微信公众号设置
-    WECHAT_DOMAIM = 'api.weixin.qq.com'
-    WECHAT_TOKEN = 'mytoken001'
-    APP_ID = 'wx16c85a8c8523abd3'
-    APP_SECRET = 'b19884b7600afc7ad9e0d67c705886d7'
+    WECHAT_DOMAIM = ''
+    WECHAT_TOKEN = ''
+    APP_ID = ''
+    APP_SECRET = ''
     MODEL_ID = ''
 
     @classmethod
@@ -69,10 +69,10 @@ class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + DATABASE_PATH
 
     # 微信公众号设置
-    WECHAT_DOMAIM = 'api.weixin.qq.com'
-    WECHAT_TOKEN = 'mytoken001'
-    APP_ID = 'wx16c85a8c8523abd3'
-    APP_SECRET = 'b19884b7600afc7ad9e0d67c705886d7'
+    WECHAT_DOMAIM = ''
+    WECHAT_TOKEN = ''
+    APP_ID = ''
+    APP_SECRET = ''
     MODEL_ID = ''
 
 
@@ -94,11 +94,11 @@ class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + DATABASE_PATH
 
     # 微信公众号设置
-    WECHAT_TOKEN = 'mytoken001'
-    WECHAT_DOMAIM = 'api.weixin.qq.com'
-    APP_ID = 'wx16c85a8c8523abd3'
-    APP_SECRET = 'b19884b7600afc7ad9e0d67c705886d7'
-    MODEL_ID = '3Jk-JCeqrV755zgJhMJ-cTErhD2zzzrpo9WbrgDbl7U'
+    WECHAT_TOKEN = ''
+    WECHAT_DOMAIM = ''
+    APP_ID = ''
+    APP_SECRET = ''
+    MODEL_ID = ''
 
     @classmethod
     def init_app(cls, app):
